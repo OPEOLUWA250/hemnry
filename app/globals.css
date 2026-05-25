@@ -1,0 +1,123 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+:root {
+  /* HEMNRY Brand Colors */
+  --primary: #121212;
+  --secondary: #C5A059;
+  --tertiary: #F9F7F2;
+  --neutral: #B8B0A5;
+  
+  /* Semantic tokens */
+  --background: #F9F7F2;
+  --foreground: #121212;
+  --card: #FFFFFF;
+  --card-foreground: #121212;
+  --accent: #C5A059;
+  --muted: #B8B0A5;
+  --border: #E8E3DA;
+  --ring: #C5A059;
+  --radius: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F9F7F2;
+  color: #121212;
+}
+
+.heading-1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #121212;
+}
+
+.heading-2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.875rem, 4vw, 3.125rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #121212;
+}
+
+.heading-3 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #121212;
+}
+
+.text-body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.625;
+  color: #121212;
+}
+
+.text-muted {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #B8B0A5;
+}
+
+.btn-primary {
+  padding: 0.75rem 1.5rem;
+  background-color: #121212;
+  color: #F9F7F2;
+  font-family: var(--font-body);
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #2A2A2A;
+}
+
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #C5A059;
+  color: #121212;
+  font-family: var(--font-body);
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  background-color: #C5A059;
+  color: #F9F7F2;
+}
+
+.gold-accent {
+  color: #C5A059;
+}
+
+.section-padding {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 640px) {
+  .section-padding {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
