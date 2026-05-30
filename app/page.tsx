@@ -105,7 +105,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 justify-items-center md:justify-items-stretch">
             {[
               {
                 name: "Standard Room",
@@ -125,7 +125,7 @@ export default function Home() {
             ].map((room) => (
               <div
                 key={room.name}
-                className="group cursor-pointer border-2 border-[#B8B0A5] overflow-hidden"
+                className="group cursor-pointer border-2 border-[#B8B0A5] overflow-hidden w-[90vw] md:w-full"
               >
                 <div className="relative h-96 md:h-[500px] overflow-hidden">
                   <Image

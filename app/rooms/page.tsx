@@ -136,7 +136,7 @@ export default function Rooms() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center md:justify-items-stretch">
             {rooms.map((room) => (
               <Link key={room.id} href={`/rooms/${room.id}`}>
                 <div className="group cursor-pointer border-2 border-[#B8B0A5] overflow-hidden">
@@ -204,10 +204,10 @@ export default function Rooms() {
                 <div className="text-3xl text-[#C5A059]">
                   <FontAwesomeIcon icon={item.icon} />
                 </div>
-                <div>
-                  <h3 className="heading-3 text-[#121212] mb-2">
-                    {item.title}
-                  </h3>
+                <div
+                  key={room.id}
+                  className="group cursor-pointer border-2 border-[#B8B0A5] overflow-hidden w-[90vw] md:w-full"
+                >
                   <p className="font-body text-[#121212]">{item.description}</p>
                 </div>
               </div>

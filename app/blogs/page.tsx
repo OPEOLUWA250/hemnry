@@ -128,10 +128,14 @@ export default function Blogs() {
           </div>
 
           {/* Blog Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 justify-items-center md:justify-items-stretch">
             {blogPosts.map((post) => (
-              <Link key={post.id} href={`/blogs/${post.slug}`}>
-                <article className="group cursor-pointer border-2 border-[#B8B0A5] overflow-hidden h-full flex flex-col">
+              <Link
+                key={post.id}
+                href={`/blogs/${post.slug}`}
+                className="w-[90vw] md:w-full"
+              >
+                <article className="group cursor-pointer border-2 border-[#B8B0A5] overflow-hidden h-full flex flex-col w-full">
                   <div className="relative h-96 md:h-125 overflow-hidden">
                     <Image
                       src={post.image}

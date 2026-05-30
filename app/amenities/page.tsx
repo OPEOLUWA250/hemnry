@@ -142,11 +142,11 @@ export default function Amenities() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center md:justify-items-stretch">
             {amenities.map((amenity, idx) => (
               <div
                 key={idx}
-                className="bg-[#F9F7F2] p-8 hover:shadow-lg transition-shadow duration-300"
+                className="bg-[#F9F7F2] p-8 hover:shadow-lg transition-shadow duration-300 w-[90vw] md:w-full"
               >
                 <div className="text-5xl mb-4 text-[#C5A059]">
                   <FontAwesomeIcon icon={amenity.icon} />
@@ -170,7 +170,7 @@ export default function Amenities() {
       <section className="section-padding bg-[#F9F7F2]">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="relative h-96 md:h-[450px]">
+            <div className="relative h-96 md:h-112.5">
               <Image
                 src="/images/spa.jpg"
                 alt="Spa & Wellness"
@@ -212,7 +212,7 @@ export default function Amenities() {
         <div className="max-w-6xl mx-auto">
           <h2 className="heading-2 text-center mb-12">Business Facilities</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center md:justify-items-stretch">
             {[
               {
                 title: "Meeting Rooms",
@@ -255,7 +255,7 @@ export default function Amenities() {
                 ],
               },
             ].map((facility, idx) => (
-              <div key={idx} className="bg-[#F9F7F2] p-8">
+              <div key={idx} className="bg-[#F9F7F2] p-8 w-[90vw] md:w-full">
                 <h3 className="heading-3 text-[#121212] mb-3">
                   {facility.title}
                 </h3>

@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -26,8 +28,43 @@ const Navigation = () => {
     document.body.style.overflow = "";
   }, [isOpen]);
 
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollY.current;
+
+      if (Math.abs(scrollDelta) < 8) {
+        return;
+      }
+
+      if (currentScrollY <= 0) {
+        setIsVisible(true);
+      } else if (scrollDelta > 0 && currentScrollY > 80) {
+        setIsVisible(false);
+      } else if (scrollDelta < 0) {
+        setIsVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const shouldShowNav = isVisible || isOpen;
+
   return (
-    <nav className="fixed top-6 left-1/2 z-50 w-[90vw] -translate-x-1/2 border border-[#E8E3DA]/90 bg-[#F9F7F2]/95 shadow-[0_14px_35px_rgba(18,18,18,0.12)] backdrop-blur-md">
+    <nav
+      className={`fixed top-6 left-1/2 z-50 w-[90vw] -translate-x-1/2 border border-[#E8E3DA]/90 bg-[#F9F7F2]/95 shadow-[0_14px_35px_rgba(18,18,18,0.12)] backdrop-blur-md transition-all duration-300 ease-out will-change-transform ${
+        shouldShowNav
+          ? "translate-y-0 opacity-100"
+          : "-translate-y-24 opacity-0 pointer-events-none"
+      }`}
+    >
       <div className="px-3 sm:px-4 lg:px-5 py-3 lg:py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
