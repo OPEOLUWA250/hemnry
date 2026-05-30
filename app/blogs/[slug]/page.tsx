@@ -1,17 +1,21 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
-import WhatsAppButton from '@/components/WhatsAppButton'
+import Image from "next/image";
+import Link from "next/link";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import BackToTop from "@/components/BackToTop";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 const blogPosts = [
   {
-    slug: 'art-of-luxury-hospitality',
-    title: 'The Art of Luxury Hospitality: A Guide to Exceptional Service',
-    category: 'Hospitality',
-    date: 'March 15, 2024',
-    author: 'Sarah Johnson',
-    image: '/images/restaurant.jpg',
+    slug: "art-of-luxury-hospitality",
+    title: "The Art of Luxury Hospitality: A Guide to Exceptional Service",
+    category: "Hospitality",
+    date: "March 15, 2024",
+    author: "Sarah Johnson",
+    image: "/images/restaurant.jpg",
     content: `Luxury hospitality is more than just comfortable beds and gourmet food—it's about creating an experience that touches the heart and mind of every guest. At HEMNRY, we believe that true luxury lies in the details and in the genuine care we extend to each person who walks through our doors.
 
 The Foundation of Excellence
@@ -33,12 +37,12 @@ Ultimately, luxury hospitality is about creating memories that last a lifetime. 
 We invite you to experience the difference that authentic luxury hospitality can make in your next escape.`,
   },
   {
-    slug: 'michelin-cuisine-behind-scenes',
-    title: 'Michelin-Starred Cuisine: Behind the Scenes at The Henry',
-    category: 'Dining',
-    date: 'March 10, 2024',
-    author: 'Marcus Chen',
-    image: '/images/kitchen.jpg',
+    slug: "michelin-cuisine-behind-scenes",
+    title: "Michelin-Starred Cuisine: Behind the Scenes at The Henry",
+    category: "Dining",
+    date: "March 10, 2024",
+    author: "Marcus Chen",
+    image: "/images/kitchen.jpg",
     content: `The kitchen at The Henry Grill & Bar is where magic happens. It's a place of precision, creativity, and unwavering dedication to culinary excellence. Today, I want to take you behind the scenes to share what it takes to create Michelin-inspired cuisine night after night.
 
 The Philosophy Behind Our Menu
@@ -68,12 +72,12 @@ At The Henry, we're not just serving food. We're creating moments, telling stori
 We invite you to join us for a culinary journey that celebrates the finest ingredients, masterful technique, and genuine hospitality.`,
   },
   {
-    slug: 'wellness-retreats-mind-body',
-    title: 'Wellness Retreats: Recharge Your Mind and Body',
-    category: 'Wellness',
-    date: 'March 5, 2024',
-    author: 'Victoria Lopez',
-    image: '/images/spa.jpg',
+    slug: "wellness-retreats-mind-body",
+    title: "Wellness Retreats: Recharge Your Mind and Body",
+    category: "Wellness",
+    date: "March 5, 2024",
+    author: "Victoria Lopez",
+    image: "/images/spa.jpg",
     content: `In today's fast-paced world, the need for wellness retreats has never been greater. At HEMNRY, we understand that true luxury is about more than material comfort—it's about nourishing your mind, body, and spirit.
 
 The Power of Wellness
@@ -98,10 +102,15 @@ Many of our guests leave HEMNRY feeling more relaxed, energized, and balanced th
 
 We invite you to book your wellness retreat at HEMNRY and experience the transformative power of our spa and wellness services.`,
   },
-]
+];
 
-export default function BlogDetail({ params }: { params: { slug: string } }) {
-  const post = blogPosts.find((p) => p.slug === params.slug)
+export default async function BlogDetail({
+  params,
+}: {
+  params: { slug: string } | Promise<{ slug: string }>;
+}) {
+  const resolvedParams = await Promise.resolve(params);
+  const post = blogPosts.find((p) => p.slug === resolvedParams.slug);
 
   if (!post) {
     return (
@@ -115,23 +124,43 @@ export default function BlogDetail({ params }: { params: { slug: string } }) {
         </div>
         <Footer />
       </>
-    )
+    );
   }
 
   return (
     <>
       <Navigation />
       <WhatsAppButton />
+      <BackToTop />
 
       {/* Hero Image */}
-      <section className="relative w-full h-96 md:h-[500px] overflow-hidden mt-20 md:mt-0">
+      <section className="relative w-full h-screen overflow-hidden mt-20 md:mt-0">
         <Image
           src={post.image}
           alt={post.title}
           fill
-          className="object-cover"
+          className="object-cover scale-110 blur-[2px]"
           priority
         />
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 flex items-end">
+          <div className="w-full px-6 md:px-12 pb-8 md:pb-12">
+            <div className="max-w-6xl mx-auto text-left">
+              <div className="flex items-center justify-start gap-3 mb-3 md:mb-4">
+                <span className="font-body text-sm font-medium text-[#C5A059] uppercase">
+                  {post.category}
+                </span>
+                <span className="font-body text-sm text-white/70">•</span>
+                <span className="font-body text-sm text-white/80">
+                  {post.date}
+                </span>
+              </div>
+              <h1 className="heading-1 page-hero-heading max-w-4xl">
+                {post.title}
+              </h1>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Article Content */}
@@ -144,22 +173,41 @@ export default function BlogDetail({ params }: { params: { slug: string } }) {
                 {post.category}
               </span>
               <span className="font-body text-sm text-[#B8B0A5]">•</span>
-              <span className="font-body text-sm text-[#B8B0A5]">{post.date}</span>
+              <span className="font-body text-sm text-[#B8B0A5]">
+                {post.date}
+              </span>
             </div>
 
-            <h1 className="heading-1 text-[#121212] mb-4">{post.title}</h1>
+            <h2 className="heading-2 text-[#121212] mb-4">{post.title}</h2>
 
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-body text-sm text-[#B8B0A5]">By</p>
-                <p className="font-body font-medium text-[#121212]">{post.author}</p>
+                <p className="font-body font-medium text-[#121212]">
+                  {post.author}
+                </p>
               </div>
               <div className="text-right">
                 <p className="font-body text-sm text-[#B8B0A5]">Share</p>
                 <div className="flex gap-3 mt-2">
-                  <button className="text-lg hover:text-[#C5A059] transition-colors duration-300">📘</button>
-                  <button className="text-lg hover:text-[#C5A059] transition-colors duration-300">🐦</button>
-                  <button className="text-lg hover:text-[#C5A059] transition-colors duration-300">📧</button>
+                  <button
+                    className="text-lg hover:text-[#C5A059] transition-colors duration-300"
+                    aria-label="Share on Facebook"
+                  >
+                    <FontAwesomeIcon icon={faFacebook} />
+                  </button>
+                  <button
+                    className="text-lg hover:text-[#C5A059] transition-colors duration-300"
+                    aria-label="Share on Twitter"
+                  >
+                    <FontAwesomeIcon icon={faTwitter} />
+                  </button>
+                  <button
+                    className="text-lg hover:text-[#C5A059] transition-colors duration-300"
+                    aria-label="Share by email"
+                  >
+                    <FontAwesomeIcon icon={faEnvelope} />
+                  </button>
                 </div>
               </div>
             </div>
@@ -167,34 +215,24 @@ export default function BlogDetail({ params }: { params: { slug: string } }) {
 
           {/* Article Body */}
           <div className="prose prose-lg max-w-none">
-            {post.content.split('\n\n').map((paragraph, idx) => {
-              if (paragraph.endsWith(':')) {
+            {post.content.split("\n\n").map((paragraph, idx) => {
+              if (paragraph.endsWith(":")) {
                 return (
                   <h2 key={idx} className="heading-2 text-[#121212] mt-8 mb-4">
                     {paragraph.slice(0, -1)}
                   </h2>
-                )
+                );
               }
               return (
-                <p key={idx} className="font-body text-base md:text-lg text-[#121212] leading-relaxed mb-6">
+                <p
+                  key={idx}
+                  className="font-body text-base md:text-lg text-[#121212] leading-relaxed mb-6"
+                >
                   {paragraph}
                 </p>
-              )
+              );
             })}
           </div>
-
-          {/* Article Footer */}
-          <footer className="mt-12 pt-8 border-t border-[#E8E3DA]">
-            <div className="bg-[#F9F7F2] p-8">
-              <h3 className="heading-3 text-[#121212] mb-2">About the Author</h3>
-              <p className="font-body text-sm text-[#121212] mb-4">
-                {post.author} is a passionate hospitality professional at HEMNRY with years of experience in the luxury industry.
-              </p>
-              <Link href="/contact" className="font-body text-sm font-medium text-[#C5A059] hover:text-[#121212] transition-colors duration-300">
-                Get in touch →
-              </Link>
-            </div>
-          </footer>
         </article>
       </section>
 
@@ -208,7 +246,10 @@ export default function BlogDetail({ params }: { params: { slug: string } }) {
               .filter((p) => p.slug !== post.slug)
               .slice(0, 3)
               .map((relatedPost) => (
-                <Link key={relatedPost.slug} href={`/blogs/${relatedPost.slug}`}>
+                <Link
+                  key={relatedPost.slug}
+                  href={`/blogs/${relatedPost.slug}`}
+                >
                   <article className="group cursor-pointer">
                     <div className="relative h-48 overflow-hidden mb-4">
                       <Image
@@ -221,7 +262,7 @@ export default function BlogDetail({ params }: { params: { slug: string } }) {
                     <p className="font-body text-xs font-medium text-[#C5A059] uppercase mb-2">
                       {relatedPost.category}
                     </p>
-                    <h3 className="heading-3 text-[#121212] group-hover:text-[#C5A059] transition-colors duration-300">
+                    <h3 className="heading-3 text-[20px]! text-[#121212] group-hover:text-[#C5A059] transition-colors duration-300">
                       {relatedPost.title}
                     </h3>
                   </article>
@@ -233,5 +274,5 @@ export default function BlogDetail({ params }: { params: { slug: string } }) {
 
       <Footer />
     </>
-  )
+  );
 }

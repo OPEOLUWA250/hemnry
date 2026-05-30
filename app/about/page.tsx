@@ -1,16 +1,28 @@
-import Image from 'next/image'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
-import WhatsAppButton from '@/components/WhatsAppButton'
+import Image from "next/image";
+import Link from "next/link";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import BackToTop from "@/components/BackToTop";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCrown,
+  faHandshake,
+  faLeaf,
+  faAward,
+  faStar,
+  faArrowRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function About() {
   return (
     <>
       <Navigation />
       <WhatsAppButton />
+      <BackToTop />
 
       {/* Hero Section */}
-      <section className="relative w-full h-96 md:h-[500px] flex items-center justify-center overflow-hidden mt-20 md:mt-0">
+      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
         <Image
           src="/images/hotel-exterior.jpg"
           alt="HEMNRY Hotels"
@@ -20,9 +32,7 @@ export default function About() {
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 text-center px-4">
-          <h1 className="heading-1 text-white mb-4">
-            About HEMNRY
-          </h1>
+          <h1 className="heading-1 page-hero-heading mb-4">About HEMNRY</h1>
           <p className="font-body text-lg text-[#F9F7F2]">
             A Legacy of Luxury Since 1922
           </p>
@@ -31,133 +41,272 @@ export default function About() {
 
       {/* Brand Story */}
       <section className="section-padding bg-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-12">
-            <h2 className="heading-2 text-[#121212] mb-6">Our Heritage</h2>
-            <p className="font-body text-lg text-[#121212] mb-4 leading-relaxed">
-              HEMNRY Hotels stands as a beacon of excellence in the hospitality industry. Founded over a century ago, our legacy is built on a foundation of unwavering commitment to elegance, comfort, and authentic hospitality.
-            </p>
-            <p className="font-body text-lg text-[#121212] leading-relaxed">
-              Each guest who walks through our doors becomes part of our extended family. We don&apos;t just offer rooms; we curate experiences that leave lasting impressions and inspire people to return again and again.
-            </p>
-          </div>
-
-          <div className="mb-12 py-8 border-y border-[#E8E3DA]">
-            <p className="font-heading text-3xl md:text-4xl text-[#C5A059] italic text-center">
-              &quot;Luxury is not an indulgence; it is a discipline.&quot;
-            </p>
-          </div>
-
-          <div>
-            <h2 className="heading-2 text-[#121212] mb-6">Our Philosophy</h2>
-            <p className="font-body text-lg text-[#121212] mb-4 leading-relaxed">
-              We believe that true luxury transcends material comfort. It&apos;s about creating spaces where guests feel genuinely valued, where every detail is thoughtfully considered, and where time seems to slow down.
-            </p>
-            <p className="font-body text-lg text-[#121212] leading-relaxed">
-              Our team of dedicated professionals works tirelessly to anticipate your needs, exceed your expectations, and ensure that every moment at HEMNRY is extraordinary.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="section-padding bg-[#F9F7F2]">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="heading-2 text-center mb-12">Our Core Values</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Excellence',
-                description: 'We pursue perfection in every aspect of our service, from the finest linens to personalized attention.',
-              },
-              {
-                title: 'Authenticity',
-                description: 'We celebrate genuine hospitality and create meaningful connections with our guests and community.',
-              },
-              {
-                title: 'Sustainability',
-                description: 'We are committed to environmental responsibility and ethical practices in all operations.',
-              },
-            ].map((value) => (
-              <div key={value.title} className="bg-white p-8">
-                <h3 className="heading-3 text-[#C5A059] mb-4">{value.title}</h3>
-                <p className="font-body text-[#121212]">{value.description}</p>
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+            <div>
+              <h2 className="heading-2 text-[#121212] mb-6">
+                A Century of Excellence
+              </h2>
+              <p className="font-body text-lg text-[#121212] mb-4 leading-relaxed">
+                Since 1922, HEMNRY Hotels has been a symbol of timeless elegance
+                and uncompromising hospitality. What began as a vision to create
+                the perfect sanctuary for discerning travelers has evolved into
+                a legacy spanning over a century.
+              </p>
+              <p className="font-body text-lg text-[#121212] mb-6 leading-relaxed">
+                Every corner of HEMNRY whispers stories of distinguished guests,
+                memorable moments, and the relentless pursuit of perfection. We
+                don&apos;t simply offer accommodations—we craft experiences that
+                become cherished memories.
+              </p>
+              <div className="flex gap-4">
+                <div>
+                  <p className="font-heading text-3xl text-[#C5A059] font-bold">
+                    100+
+                  </p>
+                  <p className="font-body text-sm text-[#B8B0A5]">
+                    Years of Service
+                  </p>
+                </div>
+                <div>
+                  <p className="font-heading text-3xl text-[#C5A059] font-bold">
+                    50K+
+                  </p>
+                  <p className="font-body text-sm text-[#B8B0A5]">
+                    Happy Guests Yearly
+                  </p>
+                </div>
+                <div>
+                  <p className="font-heading text-3xl text-[#C5A059] font-bold">
+                    5⭐
+                  </p>
+                  <p className="font-body text-sm text-[#B8B0A5]">
+                    Luxury Rating
+                  </p>
+                </div>
               </div>
-            ))}
+            </div>
+            <div className="relative h-96 md:h-full overflow-hidden">
+              <Image
+                src="/images/hotel-exterior.jpg"
+                alt="HEMNRY Heritage"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 border-2 border-[#C5A059]" />
+            </div>
+          </div>
+
+          {/* Philosophy */}
+          <div className="bg-linear-to-r from-[#F9F7F2] to-[#FFEFD7] p-12 rounded-lg mb-20">
+            <p className="font-heading text-3xl md:text-4xl text-[#121212] italic mb-4 leading-relaxed">
+              &quot;Luxury is not about perfection—it&apos;s about creating
+              spaces where every guest feels like family.&quot;
+            </p>
+            <p className="font-body text-lg text-[#B8B0A5]">
+              — HEMNRY Philosophy
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Leadership Section */}
+      {/* Core Values */}
       <section className="section-padding bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="heading-2 text-center mb-12">Guided by Visionaries</h2>
-          
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="heading-2 text-[#121212] mb-4">Our Core Values</h2>
+            <p className="font-body text-lg text-[#5F5A52] max-w-2xl mx-auto">
+              These principles guide every decision and interaction at HEMNRY
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white border-2 border-[#E8E3DA] p-8 hover:shadow-2xl transition-all duration-300 group">
+              <div className="w-16 h-16 bg-[#C5A059] rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <FontAwesomeIcon
+                  icon={faCrown}
+                  className="w-8 h-8 text-[#121212]"
+                />
+              </div>
+              <h3 className="heading-3 text-[#121212] mb-4">Excellence</h3>
+              <p className="font-body text-[#5F5A52]">
+                We pursue perfection in every detail. From the finest Egyptian
+                cotton to personalized attention, excellence is non-negotiable.
+              </p>
+            </div>
+
+            <div className="bg-white border-2 border-[#E8E3DA] p-8 hover:shadow-2xl transition-all duration-300 group">
+              <div className="w-16 h-16 bg-[#C5A059] rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <FontAwesomeIcon
+                  icon={faHandshake}
+                  className="w-8 h-8 text-[#121212]"
+                />
+              </div>
+              <h3 className="heading-3 text-[#121212] mb-4">Authenticity</h3>
+              <p className="font-body text-[#5F5A52]">
+                Genuine connections matter. We celebrate honest hospitality and
+                create meaningful relationships with every guest.
+              </p>
+            </div>
+
+            <div className="bg-white border-2 border-[#E8E3DA] p-8 hover:shadow-2xl transition-all duration-300 group">
+              <div className="w-16 h-16 bg-[#C5A059] rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <FontAwesomeIcon
+                  icon={faLeaf}
+                  className="w-8 h-8 text-[#121212]"
+                />
+              </div>
+              <h3 className="heading-3 text-[#121212] mb-4">Sustainability</h3>
+              <p className="font-body text-[#5F5A52]">
+                We care for our world. Committed to environmental responsibility
+                and ethical practices in all we do.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Leadership Team */}
+      <section className="section-padding bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="heading-2 text-[#121212] mb-4">
+              Leadership Excellence
+            </h2>
+            <p className="font-body text-lg text-[#B8B0A5] max-w-2xl mx-auto">
+              Meet the visionaries who drive our mission of hospitality
+              perfection
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: 'Elena Roussi',
-                title: 'Founder & Chief Executive Officer',
-                description: 'With over 30 years of experience in luxury hospitality, Elena founded HEMNRY with a vision to redefine elegance.',
-                image: '/images/hotel-exterior.jpg',
+                name: "Elena Roussi",
+                title: "Founder & CEO",
+                bio: "30+ years in luxury hospitality",
+                image: "/images/hotel-exterior.jpg",
               },
               {
-                name: 'Marcus Chen',
-                title: 'Executive Chef',
-                description: 'Award-winning chef with Michelin stars, Marcus leads our culinary vision with innovation and tradition.',
-                image: '/images/kitchen.jpg',
+                name: "Marcus Chen",
+                title: "Executive Chef",
+                bio: "Michelin-starred culinary artist",
+                image: "/images/kitchen.jpg",
               },
               {
-                name: 'Victoria Lopez',
-                title: 'Director of Guest Experience',
-                description: 'Victoria ensures every guest interaction reflects our commitment to exceptional service and care.',
-                image: '/images/spa.jpg',
+                name: "Victoria Lopez",
+                title: "Director of Guest Experience",
+                bio: "Specialist in personalized service",
+                image: "/images/spa.jpg",
               },
             ].map((person) => (
-              <div key={person.name}>
-                <div className="relative h-64 md:h-72 overflow-hidden mb-4">
+              <div key={person.name} className="group">
+                <div className="relative h-72 overflow-hidden mb-6 border-2 border-[#B8B0A5] group-hover:border-[#C5A059] transition-all duration-300">
                   <Image
                     src={person.image}
                     alt={person.name}
                     fill
-                    className="object-cover"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-6">
+                    <div>
+                      <h3 className="font-heading text-2xl font-bold text-white mb-1">
+                        {person.name}
+                      </h3>
+                      <p className="font-body text-[#C5A059]">{person.title}</p>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-heading text-xl font-bold text-[#121212] mb-1">{person.name}</h3>
-                <p className="font-body text-sm text-[#C5A059] font-medium mb-3">{person.title}</p>
-                <p className="font-body text-sm text-[#121212]">{person.description}</p>
+                <p className="font-body text-[#121212] text-center">
+                  {person.bio}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Awards Section */}
-      <section className="section-padding bg-[#F9F7F2]">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="heading-2 mb-12">Recognition & Awards</h2>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {/* Awards & Recognition */}
+      <section className="section-padding bg-linear-to-br from-[#FFEFD7] via-[#F9F7F2] to-[#FFEFD7]">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="heading-2 text-[#121212] mb-4">
+              Recognized Excellence
+            </h2>
+            <p className="font-body text-lg text-[#B8B0A5]">
+              Industry awards celebrating our commitment to luxury and service
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              'World&apos;s Best Hotel 2024',
-              'Michelin-Starred Restaurant',
-              'Luxury Spa of the Year',
-              'Best Hospitality Team',
-              'Sustainable Luxury Award',
-              'Design Excellence 2023',
-              'Guest Choice Award',
-              'Innovation in Dining',
-            ].map((award) => (
-              <div key={award} className="bg-white p-6 rounded">
-                <p className="font-body text-sm font-medium text-[#121212]">{award}</p>
+              { icon: faStar, title: "World's Best Hotel", year: "2024" },
+              {
+                icon: faAward,
+                title: "Michelin-Starred Restaurant",
+                year: "2023-2024",
+              },
+              {
+                icon: faCrown,
+                title: "Luxury Hospitality Award",
+                year: "2023",
+              },
+              { icon: faLeaf, title: "Sustainability Leader", year: "2024" },
+            ].map((award, idx) => (
+              <div
+                key={idx}
+                className="bg-white border-2 border-[#C5A059] p-8 text-center hover:shadow-xl transition-shadow duration-300 group"
+              >
+                <div className="flex justify-center mb-4">
+                  <div className="w-14 h-14 bg-[#C5A059] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <FontAwesomeIcon
+                      icon={award.icon}
+                      className="w-7 h-7 text-white"
+                    />
+                  </div>
+                </div>
+                <h3 className="font-heading text-lg font-bold text-[#121212] mb-2">
+                  {award.title}
+                </h3>
+                <p className="font-body text-sm text-[#C5A059]">{award.year}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="section-padding bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="heading-2 text-[#121212] mb-6">
+            Experience HEMNRY Excellence
+          </h2>
+          <p className="font-body text-lg text-[#5F5A52] mb-8 max-w-2xl mx-auto">
+            Join thousands of satisfied guests who have discovered the HEMNRY
+            difference. Whether you&apos;re seeking a luxurious escape or
+            planning an unforgettable event, we&apos;re ready to exceed your
+            expectations.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/rooms"
+              className="btn-primary inline-flex items-center gap-2"
+            >
+              Explore Rooms
+              <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/contact"
+              className="px-8 py-3 border-2 border-[#C5A059] text-[#C5A059] font-body font-medium hover:bg-[#C5A059] hover:text-[#121212] transition-all duration-300 inline-flex items-center gap-2"
+            >
+              Get in Touch
+              <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
 
       <Footer />
     </>
-  )
+  );
 }

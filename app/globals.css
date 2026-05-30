@@ -1,22 +1,22 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 :root {
   /* HEMNRY Brand Colors */
   --primary: #121212;
-  --secondary: #C5A059;
-  --tertiary: #F9F7F2;
-  --neutral: #B8B0A5;
-  
+  --secondary: #d6af5f;
+  --tertiary: #f9f7f2;
+  --neutral: #b8b0a5;
+
   /* Semantic tokens */
-  --background: #F9F7F2;
+  --background: #f9f7f2;
   --foreground: #121212;
-  --card: #FFFFFF;
+  --card: #ffffff;
   --card-foreground: #121212;
-  --accent: #C5A059;
-  --muted: #B8B0A5;
-  --border: #E8E3DA;
-  --ring: #C5A059;
+  --accent: #d6af5f;
+  --muted: #b8b0a5;
+  --border: #e8e3da;
+  --ring: #d6af5f;
   --radius: 0;
 }
 
@@ -25,8 +25,16 @@ html {
 }
 
 body {
-  background-color: #F9F7F2;
+  background-color: #f9f7f2;
   color: #121212;
+  overflow-x: hidden;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
 }
 
 .heading-1 {
@@ -39,7 +47,7 @@ body {
 
 .heading-2 {
   font-family: var(--font-heading);
-  font-size: clamp(1.875rem, 4vw, 3.125rem);
+  font-size: clamp(1.875rem, 4vw, 2.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: #121212;
@@ -63,25 +71,25 @@ body {
 .text-muted {
   font-family: var(--font-body);
   font-size: 0.875rem;
-  color: #B8B0A5;
+  color: #b8b0a5;
 }
 
 .btn-primary {
   padding: 0.75rem 1.5rem;
   background-color: #121212;
-  color: #F9F7F2;
+  color: #f9f7f2;
   font-family: var(--font-body);
   font-weight: 500;
   transition: background-color 0.3s;
 }
 
 .btn-primary:hover {
-  background-color: #2A2A2A;
+  background-color: #2a2a2a;
 }
 
 .btn-secondary {
   padding: 0.75rem 1.5rem;
-  border: 2px solid #C5A059;
+  border: 2px solid #d6af5f;
   color: #121212;
   font-family: var(--font-body);
   font-weight: 500;
@@ -89,12 +97,17 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: #C5A059;
-  color: #F9F7F2;
+  background-color: #d6af5f;
+  color: #f9f7f2;
 }
 
 .gold-accent {
-  color: #C5A059;
+  color: #d6af5f;
+}
+
+.page-hero-heading {
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: #f9f7f2 !important;
 }
 
 .section-padding {
@@ -102,6 +115,13 @@ body {
   padding-right: 1rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
+}
+
+section > :is(div, article)[class*="max-w-"] {
+  width: 90vw;
+  max-width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (min-width: 640px) {
@@ -119,5 +139,11 @@ body {
     padding-right: 3rem;
     padding-top: 5rem;
     padding-bottom: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading-2 {
+    font-size: 36px;
   }
 }

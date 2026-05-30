@@ -32,12 +32,12 @@ const BackToTop = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-24 right-6 w-14 h-14 bg-[#121212] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 z-30 ${
+      className={`fixed bottom-6 right-6 w-12 h-12 bg-[#121212] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 z-30 ${
         isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
       aria-label="Back to top"
     >
-      <FontAwesomeIcon icon={faArrowUp} className="w-5 h-5 text-[#C5A059]" />
+      <FontAwesomeIcon icon={faArrowUp} className="w-4 h-4 text-[#C5A059]" />
     </button>
   );
 };

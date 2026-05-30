@@ -34,15 +34,15 @@ export default function Home() {
       {/* Hero Section - Full Screen Image */}
       <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
         <Image
-          src="/images/hero.jpg"
+          src="/images/hero.png"
           alt="HEMNRY Luxury Hotel"
           fill
           className="object-cover absolute inset-0"
           priority
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/20" />
         <div className="relative z-10 text-center px-4 max-w-3xl">
-          <h1 className="heading-1 text-white mb-4">The Experience</h1>
+          <h1 className="heading-1 text-[#F9F7F2]! mb-4">The Experience</h1>
           <p className="font-body text-lg md:text-xl text-[#F9F7F2] mb-8">
             Discover luxury redefined. Experience unparalleled hospitality and
             world-class dining at HEMNRY.
@@ -82,7 +82,7 @@ export default function Home() {
             <div className="md:col-span-3">
               <div className="relative min-h-96 md:h-[500px] lg:h-[600px]">
                 <Image
-                  src="/images/hero.jpg"
+                  src="/images/hero.png"
                   alt="HEMNRY Heritage"
                   fill
                   className="object-cover"
@@ -385,12 +385,12 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-[#121212]">
+      <section className="section-padding bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="heading-2 text-[#F9F7F2] mb-6">
+          <h2 className="heading-2 text-[#121212] mb-6">
             Ready to Experience Luxury?
           </h2>
-          <p className="font-body text-lg text-[#B8B0A5] mb-8">
+          <p className="font-body text-lg text-[#5F5A52] mb-8">
             Your perfect getaway awaits. Reserve your room today or get in touch
             with our concierge team.
           </p>
@@ -404,7 +404,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <Footer />
     </>
   );
