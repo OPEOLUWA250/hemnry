@@ -241,7 +241,7 @@ export default async function BlogDetail({
             <h2 className="heading-2">Related Articles</h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {blogPosts
               .filter((p) => p.slug !== post.slug)
               .slice(0, 3)
