@@ -4,15 +4,18 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#121212] text-[#F9F7F2] pt-16 md:pt-20 pb-8">
+    <footer className="bg-[#121212] text-[#F9F7F2] pt-16 md:pt-20 pb-8 border-t-2 border-[#C5A059]">
       <div className="px-4 sm:px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12">
           {/* Brand */}
           <div>
-            <h3 className="font-heading text-2xl font-bold mb-4">HEMNRY</h3>
-            <p className="font-body text-sm text-[#B8B0A5] leading-relaxed">
+            <h3 className="font-heading text-3xl font-bold mb-4 tracking-tight">HEMNRY</h3>
+            <p className="font-body text-sm text-[#B8B0A5] leading-relaxed mb-6">
               Discover luxury redefined. Experience unparalleled hospitality and
               world-class dining at HEMNRY.
+            </p>
+            <p className="font-body text-xs text-[#C5A059] uppercase tracking-widest">
+              Est. 1922
             </p>
           </div>
 

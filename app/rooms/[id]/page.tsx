@@ -4,8 +4,9 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
+import Reveal from "@/components/Reveal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faCircle, faArrowRight, faUserGroup, faBed, faRulerCombined } from "@fortawesome/free-solid-svg-icons";
 
 const rooms = [
   {
@@ -193,10 +194,16 @@ export default async function RoomDetail({
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-black/20" />
         <div className="absolute inset-0 flex items-end">
-          <div className="w-full px-6 md:px-12 pb-8 md:pb-12">
+          <div className="w-full px-6 md:px-12 pb-10 md:pb-14">
             <div className="max-w-6xl mx-auto">
+              <Link
+                href="/rooms"
+                className="font-body text-xs uppercase tracking-widest text-[#D9B876] mb-4 inline-block hover:text-white transition-colors"
+              >
+                ← Rooms & Suites
+              </Link>
               <h1 className="heading-1 page-hero-heading mb-2">{room.name}</h1>
               <p className="font-body text-lg md:text-xl text-white/90 font-medium">
                 From ${room.price} per night
@@ -212,7 +219,8 @@ export default async function RoomDetail({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {/* Main Content */}
             <div className="md:col-span-2">
-              <div className="mb-10 pb-8 border-b border-[#E8E3DA]">
+              <Reveal className="mb-10 pb-8 border-b border-[#E8E3DA]">
+                <span className="kicker mb-4">Overview</span>
                 <h2 className="heading-2 text-[#121212] mb-3">{room.name}</h2>
                 <p className="font-body text-2xl text-[#C5A059] font-medium mb-4">
                   From ${room.price} per night
@@ -220,80 +228,75 @@ export default async function RoomDetail({
                 <p className="font-body text-lg text-[#121212] leading-relaxed max-w-3xl">
                   {room.description}
                 </p>
-              </div>
+              </Reveal>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-                <div className="border border-[#E8E3DA] bg-[#F9F7F2] p-5">
-                  <p className="font-body text-sm text-[#B8B0A5] mb-2">
-                    Capacity
-                  </p>
-                  <p className="font-heading text-xl font-bold text-[#121212]">
-                    {room.capacity} Guests
-                  </p>
+              <Reveal className="flex flex-wrap gap-x-10 gap-y-6 mb-10 pb-10 border-b border-[#E8E3DA]">
+                <div className="flex items-center gap-3">
+                  <FontAwesomeIcon icon={faUserGroup} className="text-[#C5A059] w-5 h-5" />
+                  <div>
+                    <p className="font-body text-xs text-[#B8B0A5] uppercase tracking-wide">Capacity</p>
+                    <p className="font-heading text-lg font-bold text-[#121212]">{room.capacity} Guests</p>
+                  </div>
                 </div>
-                <div className="border border-[#E8E3DA] bg-[#F9F7F2] p-5">
-                  <p className="font-body text-sm text-[#B8B0A5] mb-2">
-                    Bed Type
-                  </p>
-                  <p className="font-heading text-xl font-bold text-[#121212]">
-                    {room.beds}
-                  </p>
+                <div className="flex items-center gap-3">
+                  <FontAwesomeIcon icon={faBed} className="text-[#C5A059] w-5 h-5" />
+                  <div>
+                    <p className="font-body text-xs text-[#B8B0A5] uppercase tracking-wide">Bed Type</p>
+                    <p className="font-heading text-lg font-bold text-[#121212]">{room.beds}</p>
+                  </div>
                 </div>
-                <div className="border border-[#E8E3DA] bg-[#F9F7F2] p-5">
-                  <p className="font-body text-sm text-[#B8B0A5] mb-2">
-                    Room Size
-                  </p>
-                  <p className="font-heading text-xl font-bold text-[#121212]">
-                    {room.sqft} sqft
-                  </p>
+                <div className="flex items-center gap-3">
+                  <FontAwesomeIcon icon={faRulerCombined} className="text-[#C5A059] w-5 h-5" />
+                  <div>
+                    <p className="font-body text-xs text-[#B8B0A5] uppercase tracking-wide">Room Size</p>
+                    <p className="font-heading text-lg font-bold text-[#121212]">{room.sqft} sqft</p>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
 
-              <div className="mb-10">
-                <h2 className="heading-2 text-[#121212] mb-4">Overview</h2>
+              <Reveal className="mb-12">
+                <h2 className="heading-2 text-[#121212] mb-4">The Room</h2>
                 <p className="font-body text-lg text-[#121212] mb-6 leading-relaxed">
                   {room.fullDescription}
                 </p>
-                <p className="font-body text-base text-[#5F5A52] leading-relaxed">
+                <p className="font-body text-base text-[#4A453D] leading-relaxed">
                   Every room is thoughtfully designed for comfort, privacy, and
                   a refined stay experience. Expect rich textures, premium
                   bedding, and attentive service throughout your visit.
                 </p>
-              </div>
+              </Reveal>
 
-              <h2 className="heading-2 text-[#121212] mb-6">Room Amenities</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-                {room.amenities.map((amenity, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-start gap-3 border border-[#E8E3DA] bg-[#F9F7F2] p-4"
-                  >
-                    <FontAwesomeIcon
-                      icon={faCheck}
-                      className="text-[#C5A059] mt-1"
-                    />
-                    <span className="font-body text-[#121212]">{amenity}</span>
-                  </div>
-                ))}
-              </div>
+              <Reveal className="mb-12">
+                <h2 className="heading-2 text-[#121212] mb-6">Room Amenities</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+                  {room.amenities.map((amenity, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-3 py-3 border-b border-[#E8E3DA]/70"
+                    >
+                      <FontAwesomeIcon icon={faCheck} className="text-[#C5A059] w-3.5 h-3.5" />
+                      <span className="font-body text-[#121212]">{amenity}</span>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
 
-              <h2 className="heading-2 text-[#121212] mb-6">Room Features</h2>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-12">
-                {room.features.map((feature, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-start gap-3 border border-[#E8E3DA] bg-white p-4"
-                  >
-                    <FontAwesomeIcon
-                      icon={faCircle}
-                      className="text-[#C5A059] text-[8px] mt-2"
-                    />
-                    <span className="font-body text-[#121212]">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              <Reveal className="mb-12">
+                <h2 className="heading-2 text-[#121212] mb-6">Room Features</h2>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+                  {room.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <FontAwesomeIcon
+                        icon={faCircle}
+                        className="text-[#C5A059] text-[6px] mt-2"
+                      />
+                      <span className="font-body text-[#121212]">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
 
-              <div className="border-t border-[#E8E3DA] pt-8">
+              <Reveal className="border-t border-[#E8E3DA] pt-8">
                 <h2 className="heading-2 text-[#121212] mb-4">
                   Why Guests Choose This Room
                 </h2>
@@ -302,15 +305,16 @@ export default async function RoomDetail({
                   room combines elegant design, practical amenities, and a calm
                   atmosphere for a memorable stay.
                 </p>
-                <Link href="/contact" className="btn-primary inline-block">
+                <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
                   Book This Room
+                  <FontAwesomeIcon icon={faArrowRight} className="w-3.5 h-3.5" />
                 </Link>
-              </div>
+              </Reveal>
             </div>
 
             {/* Sidebar - Booking Card */}
             <div className="md:col-span-1">
-              <div className="sticky top-24 bg-[#F9F7F2] p-8 border border-[#E8E3DA]">
+              <Reveal delay={150} className="sticky top-24 bg-[#F9F7F2] p-8 border border-[#E8E3DA]">
                 <div className="mb-6 pb-6 border-b border-[#E8E3DA]">
                   <p className="font-body text-sm text-[#B8B0A5] mb-2">
                     Price per night
@@ -337,7 +341,7 @@ export default async function RoomDetail({
                   </div>
                 </div>
 
-                <div className="mb-8 p-4 bg-[#F0F0F0]">
+                <div className="mb-8 p-4 bg-white border border-[#E8E3DA]">
                   <p className="font-body text-xs text-[#B8B0A5] mb-1">
                     Availability
                   </p>
@@ -390,7 +394,7 @@ export default async function RoomDetail({
                     reservations@hemnry.com
                   </p>
                 </div>
-              </div>
+              </Reveal>
             </div>
           </div>
         </div>
@@ -399,15 +403,18 @@ export default async function RoomDetail({
       {/* Related Rooms */}
       <section className="section-padding bg-[#F9F7F2]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="heading-2 text-center mb-12">Other Room Options</h2>
+          <Reveal className="text-center mb-12">
+            <span className="kicker kicker-center mb-5">Continue Browsing</span>
+            <h2 className="heading-2">Other Room Options</h2>
+          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {rooms
               .filter((r) => r.id !== room.id)
               .slice(0, 3)
-              .map((r) => (
-                <Link key={r.id} href={`/rooms/${r.id}`}>
-                  <div className="group cursor-pointer">
+              .map((r, idx) => (
+                <Reveal key={r.id} delay={idx * 100}>
+                  <Link href={`/rooms/${r.id}`} className="group cursor-pointer block">
                     <div className="relative h-64 overflow-hidden mb-4">
                       <Image
                         src={r.image}
@@ -416,14 +423,14 @@ export default async function RoomDetail({
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
-                    <h3 className="font-heading text-lg font-bold text-[#121212] mb-2">
+                    <h3 className="font-heading text-lg font-bold text-[#121212] mb-2 group-hover:text-[#C5A059] transition-colors">
                       {r.name}
                     </h3>
                     <p className="font-body text-[#C5A059] font-medium">
                       From ${r.price}/night
                     </p>
-                  </div>
-                </Link>
+                  </Link>
+                </Reveal>
               ))}
           </div>
         </div>

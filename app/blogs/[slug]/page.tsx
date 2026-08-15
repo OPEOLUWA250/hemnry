@@ -4,6 +4,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
+import Reveal from "@/components/Reveal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons";
@@ -134,7 +135,7 @@ export default async function BlogDetail({
       <BackToTop />
 
       {/* Hero Image */}
-      <section className="relative w-full h-screen overflow-hidden mt-20 md:mt-0">
+      <section className="relative w-full h-[75vh] min-h-[32rem] overflow-hidden mt-20 md:mt-0">
         <Image
           src={post.image}
           alt={post.title}
@@ -142,10 +143,16 @@ export default async function BlogDetail({
           className="object-cover scale-110 blur-[2px]"
           priority
         />
-        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-black/45" />
         <div className="absolute inset-0 flex items-end">
-          <div className="w-full px-6 md:px-12 pb-8 md:pb-12">
-            <div className="max-w-6xl mx-auto text-left">
+          <div className="w-full px-6 md:px-12 pb-10 md:pb-14">
+            <div className="max-w-4xl mx-auto text-left">
+              <Link
+                href="/blogs"
+                className="font-body text-xs uppercase tracking-widest text-[#D9B876] mb-4 inline-block hover:text-white transition-colors"
+              >
+                ← Blog & Insights
+              </Link>
               <div className="flex items-center justify-start gap-3 mb-3 md:mb-4">
                 <span className="font-body text-sm font-medium text-[#C5A059] uppercase">
                   {post.category}
@@ -167,106 +174,98 @@ export default async function BlogDetail({
       <section className="section-padding bg-white">
         <article className="max-w-3xl mx-auto">
           {/* Article Header */}
-          <header className="mb-8 pb-8 border-b border-[#E8E3DA]">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="font-body text-sm font-medium text-[#C5A059] uppercase">
-                {post.category}
-              </span>
-              <span className="font-body text-sm text-[#B8B0A5]">•</span>
-              <span className="font-body text-sm text-[#B8B0A5]">
-                {post.date}
-              </span>
-            </div>
-
-            <h2 className="heading-2 text-[#121212] mb-4">{post.title}</h2>
-
-            <div className="flex items-center justify-between">
+          <Reveal>
+            <header className="mb-10 pb-8 border-b border-[#E8E3DA] flex items-center justify-between flex-wrap gap-6">
               <div>
-                <p className="font-body text-sm text-[#B8B0A5]">By</p>
-                <p className="font-body font-medium text-[#121212]">
+                <p className="font-body text-sm text-[#B8B0A5]">Written by</p>
+                <p className="font-heading text-lg font-bold text-[#121212]">
                   {post.author}
                 </p>
               </div>
               <div className="text-right">
-                <p className="font-body text-sm text-[#B8B0A5]">Share</p>
-                <div className="flex gap-3 mt-2">
+                <p className="font-body text-xs text-[#B8B0A5] uppercase tracking-wide mb-2">
+                  Share this article
+                </p>
+                <div className="flex gap-3">
                   <button
-                    className="text-lg hover:text-[#C5A059] transition-colors duration-300"
+                    className="w-9 h-9 flex items-center justify-center border border-[#E8E3DA] text-[#121212] hover:border-[#C5A059] hover:text-[#C5A059] transition-colors duration-300"
                     aria-label="Share on Facebook"
                   >
-                    <FontAwesomeIcon icon={faFacebook} />
+                    <FontAwesomeIcon icon={faFacebook} className="w-3.5 h-3.5" />
                   </button>
                   <button
-                    className="text-lg hover:text-[#C5A059] transition-colors duration-300"
+                    className="w-9 h-9 flex items-center justify-center border border-[#E8E3DA] text-[#121212] hover:border-[#C5A059] hover:text-[#C5A059] transition-colors duration-300"
                     aria-label="Share on Twitter"
                   >
-                    <FontAwesomeIcon icon={faTwitter} />
+                    <FontAwesomeIcon icon={faTwitter} className="w-3.5 h-3.5" />
                   </button>
                   <button
-                    className="text-lg hover:text-[#C5A059] transition-colors duration-300"
+                    className="w-9 h-9 flex items-center justify-center border border-[#E8E3DA] text-[#121212] hover:border-[#C5A059] hover:text-[#C5A059] transition-colors duration-300"
                     aria-label="Share by email"
                   >
-                    <FontAwesomeIcon icon={faEnvelope} />
+                    <FontAwesomeIcon icon={faEnvelope} className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>
-            </div>
-          </header>
+            </header>
+          </Reveal>
 
           {/* Article Body */}
-          <div className="prose prose-lg max-w-none">
+          <Reveal delay={100} className="prose prose-lg max-w-none">
             {post.content.split("\n\n").map((paragraph, idx) => {
-              if (paragraph.endsWith(":")) {
+              if (paragraph.endsWith(":") || (paragraph.length < 40 && !paragraph.endsWith("."))) {
                 return (
-                  <h2 key={idx} className="heading-2 text-[#121212] mt-8 mb-4">
-                    {paragraph.slice(0, -1)}
+                  <h2 key={idx} className="heading-2 text-[#121212] mt-10 mb-4">
+                    {paragraph.replace(/:$/, "")}
                   </h2>
                 );
               }
               return (
                 <p
                   key={idx}
-                  className="font-body text-base md:text-lg text-[#121212] leading-relaxed mb-6"
+                  className="font-body text-base md:text-lg text-[#4A453D] leading-relaxed mb-6"
                 >
                   {paragraph}
                 </p>
               );
             })}
-          </div>
+          </Reveal>
         </article>
       </section>
 
       {/* Related Articles */}
       <section className="section-padding bg-[#F9F7F2]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="heading-2 text-center mb-12">Related Articles</h2>
+          <Reveal className="text-center mb-14">
+            <span className="kicker kicker-center mb-5">Continue Reading</span>
+            <h2 className="heading-2">Related Articles</h2>
+          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {blogPosts
               .filter((p) => p.slug !== post.slug)
               .slice(0, 3)
-              .map((relatedPost) => (
-                <Link
-                  key={relatedPost.slug}
-                  href={`/blogs/${relatedPost.slug}`}
-                >
-                  <article className="group cursor-pointer">
-                    <div className="relative h-48 overflow-hidden mb-4">
-                      <Image
-                        src={relatedPost.image}
-                        alt={relatedPost.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <p className="font-body text-xs font-medium text-[#C5A059] uppercase mb-2">
-                      {relatedPost.category}
-                    </p>
-                    <h3 className="heading-3 text-[20px]! text-[#121212] group-hover:text-[#C5A059] transition-colors duration-300">
-                      {relatedPost.title}
-                    </h3>
-                  </article>
-                </Link>
+              .map((relatedPost, idx) => (
+                <Reveal key={relatedPost.slug} delay={idx * 100}>
+                  <Link href={`/blogs/${relatedPost.slug}`} className="group block">
+                    <article>
+                      <div className="relative h-48 overflow-hidden mb-4">
+                        <Image
+                          src={relatedPost.image}
+                          alt={relatedPost.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <p className="font-body text-xs font-medium text-[#C5A059] uppercase mb-2 tracking-wide">
+                        {relatedPost.category}
+                      </p>
+                      <h3 className="heading-3 text-[20px]! text-[#121212] group-hover:text-[#C5A059] transition-colors duration-300">
+                        {relatedPost.title}
+                      </h3>
+                    </article>
+                  </Link>
+                </Reveal>
               ))}
           </div>
         </div>

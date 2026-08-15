@@ -1,9 +1,13 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
+import Reveal from "@/components/Reveal";
 
 const blogPosts = [
   {
@@ -75,10 +79,16 @@ const blogPosts = [
 ];
 
 export default function Blogs() {
-  const categories = [
-    "All",
-    ...new Set(blogPosts.map((post) => post.category)),
-  ];
+  const [activeCategory, setActiveCategory] = useState("All");
+  const categories = ["All", ...new Set(blogPosts.map((post) => post.category))];
+
+  const visiblePosts = useMemo(
+    () =>
+      activeCategory === "All"
+        ? blogPosts
+        : blogPosts.filter((post) => post.category === activeCategory),
+    [activeCategory]
+  );
 
   return (
     <>
@@ -87,18 +97,21 @@ export default function Blogs() {
       <BackToTop />
 
       {/* Hero Section */}
-      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+      <section className="hero-interior relative w-full flex items-center justify-center overflow-hidden">
         <Image
-          src="/images/hero.jpg"
+          src="/images/hero.png"
           alt="HEMNRY Blog"
           fill
           className="object-cover absolute inset-0"
           priority
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/45" />
         <div className="relative z-10 text-center px-4">
+          <span className="kicker kicker-center kicker-light mb-5">
+            Journal
+          </span>
           <h1 className="heading-1 page-hero-heading mb-4">Blog & Insights</h1>
-          <p className="font-body text-lg text-[#F9F7F2]">
+          <p className="font-body text-lg text-[#F9F7F2]/90">
             Stories, tips, and insights from the world of luxury hospitality
           </p>
         </div>
@@ -107,110 +120,109 @@ export default function Blogs() {
       {/* Blog Posts Grid */}
       <section className="section-padding bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-12">
-            <h2 className="heading-2 mb-8">Latest Articles</h2>
+          <Reveal className="mb-12">
+            <span className="kicker mb-5">Latest Articles</span>
+            <div className="flex items-end justify-between flex-wrap gap-6 mb-8">
+              <h2 className="heading-2">Reading the Details</h2>
 
-            {/* Category Filter Placeholder */}
-            <div className="flex flex-wrap gap-3 mb-8">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  className={`px-4 py-2 font-body text-sm font-medium transition-colors duration-300 ${
-                    category === "All"
-                      ? "bg-[#121212] text-[#F9F7F2]"
-                      : "bg-[#F9F7F2] text-[#121212] hover:bg-[#C5A059] hover:text-white"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+              {/* Category Filter */}
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    className={`px-4 py-2 font-body text-sm font-medium transition-colors duration-300 ${
+                      category === activeCategory
+                        ? "bg-[#121212] text-[#F9F7F2]"
+                        : "bg-[#F9F7F2] text-[#121212] hover:bg-[#C5A059] hover:text-white"
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Blog Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 justify-items-center md:justify-items-stretch">
-            {blogPosts.map((post) => (
-              <Link
-                key={post.id}
-                href={`/blogs/${post.slug}`}
-                className="w-[90vw] md:w-full"
-              >
-                <article className="group cursor-pointer border-2 border-[#B8B0A5] overflow-hidden h-full flex flex-col w-full">
-                  <div className="relative h-96 md:h-125 overflow-hidden">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-
-                  <div className="p-6 flex flex-col grow">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="font-body text-xs font-medium text-[#C5A059] uppercase">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {visiblePosts.map((post, idx) => (
+              <Reveal key={post.id} delay={(idx % 3) * 100}>
+                <Link href={`/blogs/${post.slug}`} className="block h-full">
+                  <article className="group cursor-pointer card-quiet overflow-hidden h-full flex flex-col">
+                    <div className="relative h-64 overflow-hidden">
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <span className="absolute top-4 left-4 kicker kicker-light gap-2! text-[10px]">
                         {post.category}
                       </span>
-                      <span className="font-body text-xs text-[#121212]">
-                        •
-                      </span>
-                      <span className="font-body text-xs text-[#121212]">
+                    </div>
+
+                    <div className="p-6 flex flex-col grow">
+                      <p className="font-body text-xs text-[#B8B0A5] mb-3">
                         {post.date}
-                      </span>
-                    </div>
-
-                    <h3 className="heading-3 text-[20px]! text-[#121212] mb-4 group-hover:text-[#C5A059] transition-colors duration-300 line-clamp-3">
-                      {post.title}
-                    </h3>
-
-                    <p className="font-body text-sm text-[#121212] mb-6 grow line-clamp-2">
-                      {post.excerpt}
-                    </p>
-
-                    <div className="flex items-center justify-between">
-                      <p className="font-body text-xs text-[#121212]">
-                        By {post.author}
                       </p>
-                      <span className="font-body text-sm font-medium text-[#121212] group-hover:text-[#C5A059] transition-colors duration-300">
-                        Read More →
-                      </span>
+
+                      <h3 className="heading-3 text-[20px]! text-[#121212] mb-3 group-hover:text-[#C5A059] transition-colors duration-300 line-clamp-3">
+                        {post.title}
+                      </h3>
+
+                      <p className="font-body text-sm text-[#4A453D] mb-6 grow line-clamp-2">
+                        {post.excerpt}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-[#E8E3DA]">
+                        <p className="font-body text-xs text-[#4A453D]">
+                          By {post.author}
+                        </p>
+                        <span className="font-body text-sm font-medium text-[#121212] group-hover:text-[#C5A059] transition-colors duration-300">
+                          Read More →
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </Link>
+                  </article>
+                </Link>
+              </Reveal>
             ))}
           </div>
 
-          {/* Pagination Placeholder */}
-          <div className="flex justify-center gap-2">
-            <button className="px-4 py-2 bg-[#121212] text-[#F9F7F2] font-body text-sm font-medium">
-              1
-            </button>
-            <button className="px-4 py-2 bg-[#F9F7F2] text-[#121212] font-body text-sm font-medium hover:bg-[#E8E3DA] transition-colors duration-300">
-              2
-            </button>
-          </div>
+          {visiblePosts.length === 0 && (
+            <p className="text-center font-body text-[#4A453D] py-16">
+              No articles in this category yet.
+            </p>
+          )}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-white">
-        <div className="max-w-4xl mx-auto text-center border border-[#E8E3DA] p-8 md:p-12">
-          <h2 className="heading-2 text-[#121212] mb-4">
+      <section className="cta-banner relative h-[55vh] min-h-96 flex items-center justify-center">
+        <Image
+          src="/images/kitchen.jpg"
+          alt="Plan your stay at HEMNRY"
+          fill
+          className="object-cover -z-10"
+        />
+        <Reveal className="text-center px-4 max-w-2xl">
+          <h2 className="heading-2 text-[#F9F7F2]! mb-6">
             Ready for Your Luxury Escape?
           </h2>
-          <p className="font-body text-base text-[#121212] mb-8">
+          <p className="font-body text-lg text-[#F9F7F2]/85 mb-10">
             Turn inspiration into experience at HEMNRY with world-class rooms,
             dining, and hospitality.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-3">
-            <a href="/rooms" className="btn-primary inline-block">
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/rooms" className="btn-primary">
               Explore Rooms
-            </a>
-            <a href="/contact" className="btn-secondary inline-block">
+            </Link>
+            <Link href="/contact" className="btn-glass">
               Plan Your Stay
-            </a>
+            </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <Footer />

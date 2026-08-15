@@ -18,6 +18,16 @@
   --border: #e8e3da;
   --ring: #d6af5f;
   --radius: 0;
+
+  /* Extended palette for editorial layouts */
+  --ink: #121212;
+  --ink-soft: #4a453d; /* readable secondary text — replaces low-contrast taupe in body copy */
+  --stone: #b8b0a5; /* reserved for large/decorative labels only */
+  --gold: #c5a059;
+  --gold-light: #d9b876;
+  --cream: #f9f7f2;
+  --sand: #ffefd7;
+  --hairline: #e8e3da;
 }
 
 html {
@@ -37,19 +47,32 @@ svg {
   max-width: 100%;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 .heading-1 {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
   color: #121212;
 }
 
 .heading-2 {
   font-family: var(--font-heading);
-  font-size: clamp(1.875rem, 4vw, 2.25rem);
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
   font-weight: 700;
   letter-spacing: -0.02em;
+  line-height: 1.15;
   color: #121212;
 }
 
@@ -58,6 +81,15 @@ svg {
   font-size: clamp(1.25rem, 3vw, 2rem);
   font-weight: 700;
   letter-spacing: -0.01em;
+  color: #121212;
+}
+
+.heading-display {
+  font-family: var(--font-heading);
+  font-size: clamp(3.5rem, 12vw, 9rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
   color: #121212;
 }
 
@@ -74,31 +106,122 @@ svg {
   color: #b8b0a5;
 }
 
+/* Eyebrow / kicker label used above headings for editorial hierarchy */
+.kicker {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #c5a059;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.kicker::before {
+  content: "";
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: #c5a059;
+}
+
+.kicker-center {
+  justify-content: center;
+}
+
+.kicker-light {
+  color: #d9b876;
+}
+
+.kicker-light::before {
+  background: #d9b876;
+}
+
 .btn-primary {
-  padding: 0.75rem 1.5rem;
+  padding: 0.9rem 2rem;
   background-color: #121212;
   color: #f9f7f2;
   font-family: var(--font-body);
+  font-size: 0.875rem;
   font-weight: 500;
-  transition: background-color 0.3s;
+  letter-spacing: 0.04em;
+  transition: background-color 0.3s, transform 0.3s;
+  display: inline-block;
 }
 
 .btn-primary:hover {
   background-color: #2a2a2a;
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
-  padding: 0.75rem 1.5rem;
-  border: 2px solid #d6af5f;
+  padding: 0.9rem 2rem;
+  border: 1px solid #c5a059;
   color: #121212;
   font-family: var(--font-body);
+  font-size: 0.875rem;
   font-weight: 500;
+  letter-spacing: 0.04em;
   transition: all 0.3s;
+  display: inline-block;
 }
 
 .btn-secondary:hover {
-  background-color: #d6af5f;
+  background-color: #c5a059;
+  border-color: #c5a059;
   color: #f9f7f2;
+}
+
+/* Glassmorphic secondary button — for use over photos / dark hero and CTA
+   sections, where btn-secondary's dark text would disappear. Frosted panel
+   keeps text legible regardless of what's behind it. */
+.btn-glass {
+  padding: 0.9rem 2rem;
+  background: rgba(249, 247, 242, 0.1);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(249, 247, 242, 0.35);
+  color: #f9f7f2;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
+  display: inline-block;
+}
+
+.btn-glass:hover {
+  background: rgba(249, 247, 242, 0.2);
+  border-color: #d9b876;
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #121212;
+  border-bottom: 1px solid #c5a059;
+  padding-bottom: 0.25rem;
+  transition: color 0.3s, border-color 0.3s, gap 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-ghost:hover {
+  color: #c5a059;
+  gap: 0.75rem;
+}
+
+.btn-ghost-light {
+  color: #f9f7f2;
+}
+
+.btn-ghost-light:hover {
+  color: #d9b876;
 }
 
 .gold-accent {
@@ -106,8 +229,37 @@ svg {
 }
 
 .page-hero-heading {
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
   color: #f9f7f2 !important;
+}
+
+.hairline {
+  height: 1px;
+  background: #e8e3da;
+  border: none;
+}
+
+/* Quiet card: replaces heavy bordered boxes with a soft-lift hover */
+.card-quiet {
+  background: #ffffff;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-quiet:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px -20px rgba(18, 18, 18, 0.18);
+}
+
+/* Scroll-reveal, toggled by the Reveal component's IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .section-padding {
@@ -142,8 +294,22 @@ section > :is(div, article)[class*="max-w-"] {
   }
 }
 
-@media (min-width: 1024px) {
-  .heading-2 {
-    font-size: 36px;
-  }
+/* Shorter, more editorial hero for interior pages (Home keeps full-screen) */
+.hero-interior {
+  height: 68vh;
+  min-height: 32rem;
+}
+
+/* Full-bleed CTA band with image + dark overlay, used to replace repeated flat-white CTAs */
+.cta-banner {
+  position: relative;
+  isolation: isolate;
+}
+
+.cta-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0.55) 0%, rgba(18, 18, 18, 0.75) 100%);
+  z-index: -1;
 }
